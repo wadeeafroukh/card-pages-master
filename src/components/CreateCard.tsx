@@ -123,11 +123,11 @@ const CreateCard: FunctionComponent<CreateCardProps> = () => {
 
   return (
     <>
-      <div className="container d-flex justify-content-center align-items-center p-3">
+      <div className=" container py-3 create-card">
         <h1>Create Card</h1>
       </div>
 
-      <div className="container py-4">
+      <div className="container py-4 create-card">
         <form onSubmit={formik.handleSubmit}>
           <div className="row g-3">
             <div className="col-md-6">

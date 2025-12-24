@@ -5,7 +5,7 @@ interface SandBoxProps {
 }
  
 const SandBox: FunctionComponent<SandBoxProps> = () => {
-    return ( <>sand box</> );
+    return ( <><h1 className="text-center">Sand box</h1></> );
 }
  
 export default SandBox;

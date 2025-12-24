@@ -42,7 +42,7 @@ export async function getCardById(_id: string) {
 export async function toggleLike(_id: string) {
   const token = getToken();
   if (!token) throw new Error("No token found");
-  console.log(token);
+
   return axios.patch(
     `${api}/${_id}`,
     {},

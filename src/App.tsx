@@ -3,7 +3,6 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
-import ContactPage from "./components/ContactPage";
 import About from "./components/About";
 import FavouriteCards from "./components/FavouriteCards";
 import MyCards from "./components/MyCards";
@@ -12,17 +11,32 @@ import PageNotFound from "./components/PageNotFound";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { getUserFromToken, isLoggedIn } from "./services/authService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditCardPage from "./components/EditCardPage";
 import CreateCard from "./components/CreateCard";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
+  useEffect(() => {
+    const saved = localStorage.getItem("darkMode") === "true";
+    setDarkMode(saved);
+    document.body.classList.toggle("dark", saved);
+    document.documentElement.setAttribute(
+      "data-bs-theme",
+      saved ? "dark" : "light"
+    );
+  }, []);
   const toggleDarkMode = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
+
     document.body.classList.toggle("dark", newMode);
+    document.documentElement.setAttribute(
+      "data-bs-theme",
+      newMode ? "dark" : "light"
+    );
+
     localStorage.setItem("darkMode", newMode.toString());
   };
 
@@ -31,19 +45,26 @@ function App() {
   const canUserAccessBusinessPages =
     LoggedIn && (user?.isAdmin || user?.isBusiness);
   const UserIsAdmin = LoggedIn && user?.isAdmin;
+  const [search, setSearch] = useState("");
   return (
     <>
       <BrowserRouter>
-        <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <div className="app-shell">
+
+        <Navbar
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
+          search={search}
+          setSearch={setSearch}
+          />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage search={search} />} />
           <Route path="/about" element={<About />} />
           {LoggedIn === true && (
             <Route path="/favourit-cards" element={<FavouriteCards />} />
           )}
           {canUserAccessBusinessPages && (
             <>
-              <Route path="/contact-page" element={<ContactPage />} />
               <Route path={`/my-card`} element={<MyCards />} />
             </>
           )}
@@ -56,7 +77,8 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
 
-        <Footer />
+        <Footer darkMode={darkMode} />
+          </div>
       </BrowserRouter>
     </>
   );

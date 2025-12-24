@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api: string = process.env.REACT_APP_API + "/users/login";
-console.log(api);
+
 
 
 export async function userLogin(email: string, password: string) {
@@ -36,7 +36,7 @@ export function getUserFromToken(): TokenPayLoad | null {
     const payloadBase64 = token.split(".")[1];
     const payloadJson = atob(payloadBase64);
     const payload = JSON.parse(payloadJson);
-    console.log("payload:", payload);
+    
     
     return {
       id: payload._id,

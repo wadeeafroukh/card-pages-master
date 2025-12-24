@@ -1,33 +1,257 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css";
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   overflow-x: hidden;
+  font-family: sans-serif;
+  position: relative;
+  min-height: 100vh;
   background: linear-gradient(135deg, #dbe5ff 0%, #b7c6ff 50%, #acbbff 100%);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
-  font-family: sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-content {
+  flex: 1;
 }
 
 body.dark {
-  background-color: #1d1d1d;
+  background: #1d1d1d !important;
   color: #ffffff;
 }
 
-body.navbar.dark-mode {
-  background-color: #2a2a2a;
+body.dark::before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
-body.dark .card {
-  background-color: #2a2a2a;
-  color: #ffffff;
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
 }
+
+.bcard-navbar {
+  z-index: 9999;
+}
+
+body.dark .navbar {
+  background-color: #2a2a2a !important;
+}
+
+body.dark .navbar .nav-link,
+body.dark .navbar .navbar-brand {
+  color: #ffffff !important;
+}
+
+.bcard-navbar .navbar-toggler {
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.bcard-navbar .navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+}
+
 h1 {
   font-weight: bold;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 4rem;
   color: #2a2a2a;
+}
+
+body.dark h1 {
+  color: #ffffff;
+}
+
+body.dark p {
+  color: #ffffff;
+}
+
+.bcard-card {
+  width: 18rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 22px rgba(255, 255, 255, 0.12);
+}
+
+body.dark .bcard-card {
+  background: rgba(30, 30, 30, 0.85);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+}
+
+.bcard-imgWrap {
+  height: 165px;
+  overflow: hidden;
+}
+
+.bcard-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bcard-body {
+  padding: 12px;
+}
+
+.bcard-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 44px;
+}
+
+.bcard-divider {
+  margin: 10px 0;
+  opacity: 0.25;
+}
+
+.bcard-info > div {
+  padding: 3px 0;
+}
+
+.bcard-footer {
+  background: transparent;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 10px 12px;
+}
+
+body.dark .bcard-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+footer {
+  margin-top: auto;
+  width: 100%;
+}
+
+.bcard-footer-top {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(10px);
+}
+
+.bcard-footer-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #111;
+  padding: 8px;
+}
+
+.bcard-footer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.bcard-footer-item i {
+  font-size: 28px;
+}
+
+.bcard-footer.dark .bcard-footer-top {
+  background: rgba(30, 30, 30, 0.65);
+  color: #ffffff;
+}
+
+.footer-text {
+  margin: 0;
+  color: #ffffff;
+  font-size: 18px;
+  text-align: center;
+}
+
+.edit-card {
+  max-width: 900px;
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 34px;
+  }
+
+  .edit-card h1 {
+    font-size: 2.2rem;
+  }
+
+  .edit-card .form-control {
+    padding: 12px !important;
+  }
+
+  .bcard-navbar .navbar-collapse {
+    padding-top: 12px;
+  }
+
+  .bcard-navbar .navbar-nav {
+    gap: 6px;
+  }
+
+  .bcard-navbar form.d-flex {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .bcard-navbar form.d-flex input {
+    width: 100%;
+  }
+
+  .bcard-navbar .d-flex.align-items-center.gap-3 {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+
+  .bcard-navbar .btn {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .bcard-footer-item {
+    font-size: 16px;
+  }
+
+  .bcard-footer-item i {
+    font-size: 24px;
+  }
 }

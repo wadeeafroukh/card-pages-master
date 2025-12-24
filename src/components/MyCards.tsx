@@ -50,12 +50,12 @@ const MyCards: FunctionComponent<MyCardsProps> = () => {
     }
   };
 
-  const editMyCard =  (_id: string, updatedCard: Card) => {
+  const editMyCard = (_id: string, updatedCard: Card) => {
     setMyCards((prev) =>
       prev.map((card) => (card._id === _id ? updatedCard : card))
     );
     navigate("/edit-card/" + _id);
-  }
+  };
 
   const goToCreateCard = () => {
     navigate("/create-card");
@@ -68,71 +68,104 @@ const MyCards: FunctionComponent<MyCardsProps> = () => {
         {myCards.length === 0 && (
           <p>You have no cards yet, Add new your new card</p>
         )}
-        <div className="d-flex flex-wrap gap-3 justify-content-center">
-          {myCards.map((card: Card) => (
-            <div
-              key={card._id}
-              className="card shadow-sm"
-              style={{ width: "18rem" }}
-            >
-              <div className="overflow-hidden" style={{ height: "180px" }}>
-                <img
-                  src={card.image?.url}
-                  className="w-100 h-100"
-                  style={{ objectFit: "cover" }}
-                  alt={card.image?.alt}
-                />
-              </div>
+        <div className="container gap-2">
+          <div className="row g-4 justify-content-center">
+            {myCards.map((card: Card) => (
+              <div
+                key={card._id}
+                className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
+              >
+                <div className="card bcard-card shadow-sm">
+                  <div className="bcard-imgWrap">
+                    <img
+                      src={card.image?.url}
+                      className="bcard-img"
+                      alt={card.image?.alt}
+                    />
+                  </div>
 
-              <div className="card-body border-bottom">
-                <h5 className="card-title mb-2">{card.title}</h5>
-                <p
-                  className="card-text mb-0 overflow-hidden"
-                  style={{ height: "72px" }}
-                >
-                  {card.description}.
-                </p>
-              </div>
+                  <div className="card-body bcard-body">
+                    <h5 className="card-title mb-1">{card.title}</h5>
+                    <p className="text-muted small mb-2">{card.subtitle}</p>
 
-              <div className="card-body d-flex justify-content-between align-items-center">
-                <div className="d-flex align-items-center gap-3">
-                  <button
-                    type="button"
-                    className="btn btn-link p-0 border-0"
-                    onClick={() => likeMyCard(card._id!)}
-                  >
-                    <i
-                      className={
-                        card.isLiked
-                          ? "fa-solid fa-heart text-danger fa-lg"
-                          : "fa-solid fa-heart fa-lg"
-                      }
-                    ></i>
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-link p-0 border-0"
-                    onClick={() => editMyCard(card._id!, card)}
-                  ><i className="fa-solid fa-pen-to-square"></i></button>
+                    <p className="card-text bcard-desc mb-3">
+                      {card.description}
+                    </p>
 
-                  <a
-                    className="btn btn-link p-0 border-0"
-                    href={`tel:${card.phone}`}
-                  >
-                    <i className="fa-solid fa-phone fa-lg"></i>
-                  </a>
+                    <hr className="bcard-divider" />
 
-                  <button
-                    type="button"
-                    className="btn btn-link p-0 border-0"
-                    onClick={() => deleteMyCard(card._id!)}
-                  >
-                    <i className="fa-solid fa-trash-can"></i>
-                  </button>
+                    <div className="bcard-info small">
+                      <div className="d-flex justify-content-between">
+                        <span className="text-muted">Phone:</span>
+                        <span>{card.phone}</span>
+                      </div>
+
+                      <div className="d-flex justify-content-between">
+                        <span className="text-muted">Address:</span>
+                        <span>{card.address?.country}</span>
+                      </div>
+
+                      <div className="d-flex justify-content-between">
+                        <span className="text-muted">Card Number:</span>
+                        <span>{card.bizNumber}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="card-footer bcard-footer d-flex justify-content-between align-items-center">
+                    <div className="d-flex align-items-center gap-3">
+                      <button
+                        type="button"
+                        className="btn btn-link p-0 border-0"
+                        onClick={() => likeMyCard(card._id!)}
+                      >
+                        <i
+                          className={
+                            card.isLiked
+                              ? "fa-solid fa-heart text-danger"
+                              : "fa-regular fa-heart"
+                          }
+                          style={{ fontSize: 18 }}
+                        ></i>
+                      </button>
+
+                      <button
+                        type="button"
+                        className="btn btn-link p-0 border-0"
+                        onClick={() => editMyCard(card._id!, card)}
+                      >
+                        <i
+                          className="fa-solid fa-pen-to-square"
+                          style={{ fontSize: 18 }}
+                        ></i>
+                      </button>
+
+                      <a
+                        className="btn btn-link p-0 border-0"
+                        href={`tel:${card.phone}`}
+                      >
+                        <i
+                          className="fa-solid fa-phone"
+                          style={{ fontSize: 18 }}
+                        ></i>
+                      </a>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="btn btn-link p-0 border-0"
+                      onClick={() => deleteMyCard(card._id!)}
+                    >
+                      <i
+                        className="fa-solid fa-trash-can"
+                        style={{ fontSize: 18 }}
+                      ></i>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
           <button onClick={goToCreateCard} type="button" className="btn">
             <i className="fa-solid fa-plus display-5 text-primary"></i>

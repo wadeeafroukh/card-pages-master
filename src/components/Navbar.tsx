@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   getUserFromToken,
@@ -10,30 +10,35 @@ interface NavbarProps {
   darkMode?: boolean;
   toggleDarkMode?: Function;
   children?: React.ReactNode;
+  search: string;
+  setSearch: (val: string) => void;
 }
 
-const Navbar: FunctionComponent<NavbarProps> = () => {
-  
-  
+const Navbar: FunctionComponent<NavbarProps> = ({
+  darkMode,
+  toggleDarkMode,
+  children,
+  search,
+  setSearch,
+}) => {
   const navigate = useNavigate();
   const logout = () => {
     removeToken();
     navigate("/");
   };
-  const toggleDarkMode = () => {
-    document.body.classList.toggle("dark");
-  };
+
   const LoggedIn = isLoggedIn();
   const user = getUserFromToken();
   const canUserAccessBusinessPages =
-  LoggedIn && (user?.isAdmin || user?.isBusiness);
+    LoggedIn && (user?.isAdmin || user?.isBusiness);
   const UserIsAdmin = LoggedIn && user?.isAdmin;
-  console.log("token:", sessionStorage.getItem("token") );
-  console.log('user:', user);
+
   return (
     <nav
-      className="navbar navbar-expand-lg shadow-sm"
-      style={{ backgroundColor: "#0d6efd" }}
+      className={`navbar navbar-expand-lg shadow-sm bcard-navbar ${
+        darkMode ? "navbar-dark" : "navbar-dark"
+      }`}
+      style={{ backgroundColor: darkMode ? "#111" : "#0d6efd" }}
     >
       <div className="container-fluid">
         <NavLink
@@ -45,7 +50,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         </NavLink>
 
         <button
-          className="navbar-toggler"
+          className="navbar-toggler bcard-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navMenu"
@@ -55,7 +60,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         >
           <span className="navbar-toggler-icon" />
         </button>
-
         <div className="collapse navbar-collapse" id="navMenu">
           <ul className="navbar-nav me-auto mb-2  mb-lg-0">
             <li className="nav-item">
@@ -104,11 +108,13 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             )}
           </ul>
 
-          <form className="d-flex me-3">
+          <form className="d-flex me-3" onSubmit={(e) => e.preventDefault()}>
             <input
               className="form-control me-2"
               type="search"
-              placeholder="Search"
+              placeholder="Search project..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               style={{ fontSize: "1rem" }}
             />
             <button
@@ -116,14 +122,17 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               type="submit"
               style={{ fontSize: "1rem" }}
             >
-              <i className="fa-solid fa-magnifying-glass"></i>
+              <i className="fa-solid fa-magnifying-glass text-light"></i>
             </button>
           </form>
 
           <div className="d-flex align-items-center gap-3">
-            <button onClick={toggleDarkMode} className="btn">
+            <button onClick={() => toggleDarkMode?.()} className="btn">
               <i
-                style={{ fontSize: 30, color: "rgba(0, 0, 0, 1)" }}
+                style={{
+                  fontSize: 30,
+                  color: darkMode ? "#fff" : "rgba(0, 0, 0, 1)",
+                }}
                 className="fa-solid fa-sun"
               ></i>
             </button>
@@ -152,14 +161,22 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 onClick={() => navigate("/register")}
                 type="button"
                 style={{ fontSize: "600" }}
-                className="btn btn-outline-light text-dark mx-1"
+                className={
+                  darkMode
+                    ? "btn btn-light text-dark mx-1"
+                    : "btn btn-outline-light text-dark mx-1"
+                }
               >
                 Register
               </button>
               <button
                 onClick={() => navigate("/login")}
                 type="button"
-                className="btn btn-outline-light text-dark mx-1"
+                className={
+                  darkMode
+                    ? "btn btn-light text-dark mx-1"
+                    : "btn btn-outline-light text-dark mx-1"
+                }
               >
                 Login
               </button>
