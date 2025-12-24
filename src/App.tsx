@@ -48,7 +48,7 @@ function App() {
   const [search, setSearch] = useState("");
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="/card-pages-master">
       <div className="app-shell">
 
         <Navbar
