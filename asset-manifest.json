@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/wadeeafroukh/card-pages-master/static/css/main.271b4456.css",
+    "main.js": "/wadeeafroukh/card-pages-master/static/js/main.e7ad1b18.js",
+    "static/js/453.1a41f49d.chunk.js": "/wadeeafroukh/card-pages-master/static/js/453.1a41f49d.chunk.js",
+    "index.html": "/wadeeafroukh/card-pages-master/index.html",
+    "main.271b4456.css.map": "/wadeeafroukh/card-pages-master/static/css/main.271b4456.css.map",
+    "main.e7ad1b18.js.map": "/wadeeafroukh/card-pages-master/static/js/main.e7ad1b18.js.map",
+    "453.1a41f49d.chunk.js.map": "/wadeeafroukh/card-pages-master/static/js/453.1a41f49d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.271b4456.css",
+    "static/js/main.e7ad1b18.js"
+  ]
+}
