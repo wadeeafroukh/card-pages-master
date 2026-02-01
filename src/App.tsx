@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { HashRouter, Route, Router, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import About from "./components/About";
 import FavouriteCards from "./components/FavouriteCards";
@@ -48,7 +48,7 @@ function App() {
   const [search, setSearch] = useState("");
   return (
     <>
-      <BrowserRouter basename="/card-pages-master">
+      <HashRouter basename="/card-pages-master">
       <div className="app-shell">
 
         <Navbar
@@ -79,7 +79,7 @@ function App() {
 
         <Footer darkMode={darkMode} />
           </div>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }
