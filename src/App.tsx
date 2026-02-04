@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { HashRouter, Route, Router, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import About from "./components/About";
 import FavouriteCards from "./components/FavouriteCards";
@@ -24,7 +24,7 @@ function App() {
     document.body.classList.toggle("dark", saved);
     document.documentElement.setAttribute(
       "data-bs-theme",
-      saved ? "dark" : "light"
+      saved ? "dark" : "light",
     );
   }, []);
   const toggleDarkMode = () => {
@@ -34,7 +34,7 @@ function App() {
     document.body.classList.toggle("dark", newMode);
     document.documentElement.setAttribute(
       "data-bs-theme",
-      newMode ? "dark" : "light"
+      newMode ? "dark" : "light",
     );
 
     localStorage.setItem("darkMode", newMode.toString());
@@ -49,36 +49,35 @@ function App() {
   return (
     <>
       <HashRouter>
-      <div className="app-shell">
-
-        <Navbar
-          darkMode={darkMode}
-          toggleDarkMode={toggleDarkMode}
-          search={search}
-          setSearch={setSearch}
+        <div className="app-shell">
+          <Navbar
+            darkMode={darkMode}
+            toggleDarkMode={toggleDarkMode}
+            search={search}
+            setSearch={setSearch}
           />
-        <Routes>
-          <Route path="/" element={<HomePage search={search} />} />
-          <Route path="/about" element={<About />} />
-          {LoggedIn === true && (
-            <Route path="/favourit-cards" element={<FavouriteCards />} />
-          )}
-          {canUserAccessBusinessPages && (
-            <>
-              <Route path={`/my-card`} element={<MyCards />} />
-            </>
-          )}
-          {UserIsAdmin && <Route path="/sandbox" element={<SandBox />} />}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/edit-card/:id" element={<EditCardPage />} />
-          <Route path="/create-card" element={<CreateCard />} />
+          <Routes>
+            <Route path="/" element={<HomePage search={search} />} />
+            <Route path="/about" element={<About />} />
+            {LoggedIn === true && (
+              <Route path="/favourit-cards" element={<FavouriteCards />} />
+            )}
+            {canUserAccessBusinessPages && (
+              <>
+                <Route path={`/my-card`} element={<MyCards />} />
+              </>
+            )}
+            {UserIsAdmin && <Route path="/sandbox" element={<SandBox />} />}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/edit-card/:id" element={<EditCardPage />} />
+            <Route path="/create-card" element={<CreateCard />} />
 
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
 
-        <Footer darkMode={darkMode} />
-          </div>
+          <Footer darkMode={darkMode} />
+        </div>
       </HashRouter>
     </>
   );
