@@ -48,7 +48,7 @@ function App() {
   const [search, setSearch] = useState("");
   return (
     <>
-      <HashRouter basename="/card-pages-master">
+      <HashRouter>
       <div className="app-shell">
 
         <Navbar
